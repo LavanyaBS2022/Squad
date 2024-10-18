@@ -1,0 +1,54 @@
+.visit-list-container {
+  margin-left: 260px;
+  padding: 20px;
+  width: 100% imo !important;
+}
+
+.visit-list-container table {
+  width: 100% !important;
+  margin-top: 20px;
+}
+
+.visit-list-container table th,
+.visit-list-container table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: left;
+}
+
+.visit-list-container table th {
+  background-color: #f0f3f7;
+  font-size: 16px;
+  font-weight: 600; 
+}
+
+.visit-list-container table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.visit-list-container table tbody tr:hover {
+  background-color: #f0f3f7;
+}
+
+.visit-details {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Added subtle shadow for depth
+}
+
+.visit-details h3 {
+  margin-top: 0; // Remove default margin on h3
+  color: #333; // Consistent header color
+}
+
+.visit-details mat-form-field {
+  width: 100%; // Ensures form fields use full width
+  margin-bottom: 10px; // Spacing between fields
+}
+
+.visit-details button {
+  margin-right: 10px; // Spacing between buttons
+}

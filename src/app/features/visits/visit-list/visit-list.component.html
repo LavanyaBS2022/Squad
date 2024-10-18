@@ -1,0 +1,86 @@
+<div class="visit-list-container">
+  <h2>Visit List</h2>
+
+  <table mat-table [dataSource]="visits" class="mat-elevation-z8">
+    <ng-container matColumnDef="#">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let visit; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef>Route</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.route }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="visitDate">
+      <th mat-header-cell *matHeaderCellDef>Visit Date</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.visitDate | date: 'dd/MM/yyyy' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="visitType">
+      <th mat-header-cell *matHeaderCellDef>Visit Type</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.visitType }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="inspector">
+      <th mat-header-cell *matHeaderCellDef>Inspector</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.inspector }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="remarks">
+      <th mat-header-cell *matHeaderCellDef>Remarks</th>
+      <td mat-cell *matCellDef="let visit">{{ visit.remarks }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let visit">
+        <button mat-button (click)="editVisit(visit)">Edit</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="isEditing" class="visit-details">
+    <h3>Edit Visit Details</h3>
+    <form [formGroup]="visitForm" (ngSubmit)="submitVisit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Route</mat-label>
+        <mat-select formControlName="route">
+          <mat-option *ngFor="let visit of visits" [value]="visit.route">{{ visit.route }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Visit Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="visitDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Visit Type</mat-label>
+        <mat-select formControlName="visitType">
+          <mat-option *ngFor="let type of visitTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Inspector</mat-label>
+        <mat-select formControlName="inspector">
+          <mat-option *ngFor="let inspector of inspectors" [value]="inspector">{{ inspector }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput formControlName="remarks" rows="3"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit">Submit</button>
+      <button mat-button (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+.create-visit-container {
+  max-width: 900px; 
+  margin-left: 240PX;
+  padding: 20px;
+}
+
+.create-visit-container h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-visit-container form {
+  background-color: #fff;
+  padding: 15px; 
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; 
+}
+
+.create-visit-container form div {
+  flex: 1 1 calc(25% - 20px); 
+  min-width: 180px; 
+}
+
+mat-form-field {
+  width: 100%; 
+}
+
+mat-form-field .mat-form-field-wrapper {
+  padding-bottom: 5px; 
+}
+
+mat-select, mat-input-element {
+  padding: 6px 8px; 
+  font-size: 14px;
+}
+
+textarea {
+  height: 60px; 
+  width: 100%; 
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.create-visit-container button[type="submit"] {
+  background-color: #20a8d8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px; /* Reduced padding for the button */
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  margin-top: 15px;
+  align-self: flex-start; /* Align the button to the left */
+}
+
+.create-visit-container button[type="submit"]:hover {
+  background-color: #1a8db8; /* Darken the button on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .create-visit-container form div {
+    flex: 1 1 calc(50% - 20px); /* Reduces to two fields per row on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .create-visit-container form div {
+    flex: 1 1 100%; /* Full width fields on very small screens */
+  }
+}

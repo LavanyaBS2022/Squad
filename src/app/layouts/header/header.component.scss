@@ -1,0 +1,38 @@
+.navbar {
+  background-color: #ffffff; 
+  padding-left: 10px; 
+  display: flex;
+  color: #394263; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding-top: 5px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #ccc; 
+}
+
+
+.navbar .navbar-brand img {
+  height: 35px; 
+  width: 200px;
+  filter: invert(0); 
+}
+
+.navbar a {
+  color: #394263;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+
+.navbar a:hover {
+  color: #f0f0f0;
+}
+
+.navbar .navbar-links {
+  display: flex;
+  gap: 15px;
+}
