@@ -1,56 +1,50 @@
 <div class="create-visit-container">
   <h2>Create New Visit</h2>
-  
-  <form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
-    <div>
-      <mat-form-field appearance="fill">
+
+  <form [formGroup]="visitForm" (ngSubmit)="onSubmit()" class="visit-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Visit Date</mat-label>
-        <input matInput [matDatepicker]="picker" id="visitDate" formControlName="visitDate">
+        <input matInput [matDatepicker]="picker" formControlName="visitDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-    </div>
 
-    <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Route</mat-label>
-        <mat-select id="route" formControlName="route">
+        <mat-select formControlName="route">
           <mat-option *ngFor="let route of routes" [value]="route">{{ route }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Type of Visit</mat-label>
-        <mat-select id="visitType" formControlName="visitType">
+        <mat-select formControlName="visitType">
           <mat-option *ngFor="let type of visitTypes" [value]="type">{{ type }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Inspector</mat-label>
-        <mat-select id="inspector" formControlName="inspector">
+        <mat-select formControlName="inspector">
           <mat-option *ngFor="let inspector of inspectors" [value]="inspector">{{ inspector }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <div>
-      <mat-form-field appearance="fill">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field" colspan="4">
         <mat-label>Remarks</mat-label>
-        <textarea matInput id="remarks" formControlName="remarks"></textarea>
+        <textarea matInput formControlName="remarks"></textarea>
       </mat-form-field>
-    </div>
 
-    <div>
-      <button mat-raised-button color="primary" type="submit" [disabled]="visitForm.invalid">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="visitForm.invalid" class="submit-btn">
+        Submit
+      </button>
     </div>
   </form>
 
-  <div *ngIf="submitted">
+  <div *ngIf="submitted" class="submission-result">
     <h3>Form Submitted Successfully!</h3>
     <pre>{{ visitForm.value | json }}</pre>
   </div>

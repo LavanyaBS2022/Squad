@@ -44,7 +44,7 @@
   </table>
 
   <div *ngIf="isEditing" class="visit-details">
-    <h3>Edit Visit Details</h3>
+    <div class="card-header">Edit Visit Details</div>
     <form [formGroup]="visitForm" (ngSubmit)="submitVisit()">
       <mat-form-field appearance="outline">
         <mat-label>Route</mat-label>
@@ -79,8 +79,10 @@
         <textarea matInput formControlName="remarks" rows="3"></textarea>
       </mat-form-field>
 
-      <button mat-raised-button type="submit">Submit</button>
-      <button mat-button (click)="cancelEdit()">Cancel</button>
+      <div class="form-actions">
+        <button mat-raised-button type="submit">Submit</button>
+        <button mat-button (click)="cancelEdit()">Cancel</button>
+      </div>
     </form>
   </div>
 </div>

@@ -1,76 +1,63 @@
 .create-visit-container {
-  max-width: 900px; 
-  margin-left: 240PX;
+  max-width: 900px;
+  margin: 50px auto 200px 270px; /* Adjusted margin-top and margin-left */
   padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding-bottom: 50px; /* Adjusted padding-bottom */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05); /* Stronger bottom shadow */
 }
 
 .create-visit-container h2 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
   text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.create-visit-container form {
-  background-color: #fff;
-  padding: 15px; 
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+.visit-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px; 
 }
 
-.create-visit-container form div {
-  flex: 1 1 calc(25% - 20px); 
-  min-width: 180px; 
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px; /* Increased spacing between rows */
 }
 
-mat-form-field {
-  width: 100%; 
+.form-field {
+  flex: 1 1 calc(25% - 15px);
+  min-width: 200px;
 }
 
-mat-form-field .mat-form-field-wrapper {
-  padding-bottom: 5px; 
-}
-
-mat-select, mat-input-element {
-  padding: 6px 8px; 
-  font-size: 14px;
+.mat-form-field {
+  height: 48px;
 }
 
 textarea {
-  height: 60px; 
-  width: 100%; 
-  padding: 6px 8px;
-  font-size: 14px;
+  height: 40px !important; /* Reduced textarea height */
+  resize: none;
+  margin-right: 100px;
 }
 
-.create-visit-container button[type="submit"] {
+.submit-btn {
+  align-self: flex-end;
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 25px;
   background-color: #20a8d8;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px; /* Reduced padding for the button */
-  font-size: 14px; /* Smaller font size */
-  cursor: pointer;
-  margin-top: 15px;
-  align-self: flex-start; /* Align the button to the left */
+  color: white;
+  position: relative;
 }
 
-.create-visit-container button[type="submit"]:hover {
-  background-color: #1a8db8; /* Darken the button on hover */
+.submit-btn:hover {
+  background-color: #1a8db8;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .create-visit-container form div {
-    flex: 1 1 calc(50% - 20px); /* Reduces to two fields per row on smaller screens */
-  }
-}
-
-@media (max-width: 768px) {
-  .create-visit-container form div {
-    flex: 1 1 100%; /* Full width fields on very small screens */
-  }
+.submission-result {
+  text-align: center;
+  margin-top: 20px;
 }

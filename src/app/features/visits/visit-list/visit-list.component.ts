@@ -58,16 +58,27 @@ export class VisitListComponent implements OnInit {
 
   submitVisit() {
     const visitData = this.visitForm.value;
-
-    const index = this.visits.findIndex((v) => v.route === this.selectedVisit.route);
+  
+    // Find the index of the visit using a unique identifier (like route)
+    const index = this.visits.findIndex(v => v.route === this.selectedVisit.route);
+  
     if (index !== -1) {
-      this.visits[index] = { ...visitData, visitDate: new Date(visitData.visitDate) }; 
+      // Update the specific row with the new form data
+      this.visits[index] = {
+        ...visitData, 
+        visitDate: new Date(visitData.visitDate)  // Make sure date is updated correctly
+      };
+  
+      // To ensure change detection works, reassign the array
+      this.visits = [...this.visits]; // Reassign the array to trigger change detection
     }
-
+  
+    // Reset form and close the edit mode
     this.selectedVisit = null;
     this.visitForm.reset();
-    this.isEditing = false; 
+    this.isEditing = false;
   }
+  
 
   cancelEdit() {
     this.selectedVisit = null; 
