@@ -46,18 +46,19 @@
   <div *ngIf="isEditing" class="visit-details">
     <div class="card-header">Edit Visit Details</div>
     <form [formGroup]="visitForm" (ngSubmit)="submitVisit()">
-      <mat-form-field appearance="outline">
-        <mat-label>Route</mat-label>
-        <mat-select formControlName="route">
-          <mat-option *ngFor="let visit of visits" [value]="visit.route">{{ visit.route }}</mat-option>
-        </mat-select>
-      </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Visit Date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="visitDate" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Route</mat-label>
+        <mat-select formControlName="route">
+          <mat-option *ngFor="let visit of visits" [value]="visit.route">{{ visit.route }}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">

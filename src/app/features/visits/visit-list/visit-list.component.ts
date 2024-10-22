@@ -30,8 +30,8 @@ export class VisitListComponent implements OnInit {
 
   ngOnInit() {
     this.visitForm = this.fb.group({
-      route: new FormControl(''),
       visitDate: new FormControl(''), 
+      route: new FormControl(''),
       visitType: new FormControl(''),
       inspector: new FormControl(''),
       remarks: new FormControl(''),
@@ -59,21 +59,17 @@ export class VisitListComponent implements OnInit {
   submitVisit() {
     const visitData = this.visitForm.value;
   
-    // Find the index of the visit using a unique identifier (like route)
     const index = this.visits.findIndex(v => v.route === this.selectedVisit.route);
   
     if (index !== -1) {
-      // Update the specific row with the new form data
       this.visits[index] = {
         ...visitData, 
-        visitDate: new Date(visitData.visitDate)  // Make sure date is updated correctly
+        visitDate: new Date(visitData.visitDate)  
       };
   
-      // To ensure change detection works, reassign the array
-      this.visits = [...this.visits]; // Reassign the array to trigger change detection
+      this.visits = [...this.visits]; 
     }
   
-    // Reset form and close the edit mode
     this.selectedVisit = null;
     this.visitForm.reset();
     this.isEditing = false;

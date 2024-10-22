@@ -1,0 +1,19 @@
+API List:
+
+create visit:
+	1. get api's
+		a) Route list
+		b) Inspector list
+		c) Visit type
+	2. post api is required 
+	   feilds:-
+		visit date
+		route
+		type_of_visit
+		inspector
+		remarks
+visit list:
+	1. get api
+		a) list of visit 
+	2. put api
+		a) for submitting the edited data

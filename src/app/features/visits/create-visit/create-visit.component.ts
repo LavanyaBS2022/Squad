@@ -33,7 +33,6 @@ export class CreateVisitComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-
     if (this.visitForm.valid) {
       console.log('Form Data:', this.visitForm.value);
       this.openSnackBar('Visit created successfully', 'success');
