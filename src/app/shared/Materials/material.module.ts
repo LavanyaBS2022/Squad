@@ -96,6 +96,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatMenuModule,
     MatTabsModule,
+    
   ],
   exports:[
     CdkStepperModule,
@@ -141,7 +142,7 @@ import { FormsModule } from '@angular/forms';
     ScrollingModule,
     MatFormFieldModule,
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class MaterialModule { }

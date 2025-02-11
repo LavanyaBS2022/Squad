@@ -1,84 +1,97 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../shared/Materials/material.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from '../../../core/services/api.service';
+import { VisitDetailsComponent } from '../visit-details/visit-details.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-visit-list',
   standalone: true,
-  imports: [CommonModule,MaterialModule,FormsModule],
+  imports: [CommonModule, MaterialModule, FormsModule, HttpClientModule],
   templateUrl: './visit-list.component.html',
   styleUrl: './visit-list.component.scss'
 })
+export class VisitListComponent implements OnInit, AfterViewInit {
+    visits: any[] = [];
+    visitForm!: FormGroup;
+    isLoading: boolean = true;
+    dataSource = new MatTableDataSource<any>([]);
 
-export class VisitListComponent implements OnInit {
-  visits = [
-    { route: 'Route 1', visitDate: new Date(), visitType: 'Type 1', inspector: 'Inspector 1', remarks: 'Remarks 1' },
-    { route: 'Route 2', visitDate: new Date(), visitType: 'Type 2', inspector: 'Inspector 2', remarks: 'Remarks 2' },
-  ];
+    displayedColumns: string[] = ['Sl No', 'visitDate', 'visitType', 'inspector', 'remarks', 'actions'];
+    @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
-  selectedVisit: any = null;
-  visitForm!: FormGroup; 
-  isEditing: boolean = false; 
+    constructor(private fb: FormBuilder, private apiService: ApiService, private dialog: MatDialog) {}
 
-  displayedColumns: string[] = ['#', 'route', 'visitDate', 'visitType', 'inspector', 'remarks', 'actions'];
+    ngOnInit() {
+      this.visitForm = this.fb.group({
+        visitDate: new FormControl(''),
+        visitType: new FormControl(''),
+        inspector: new FormControl(''),
+        remarks: new FormControl(''),
+      });
 
-  visitTypes = ['Type 1', 'Type 2', 'Type 3'];
-  inspectors = ['Inspector 1', 'Inspector 2', 'Inspector 3'];
-
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.visitForm = this.fb.group({
-      visitDate: new FormControl(''), 
-      route: new FormControl(''),
-      visitType: new FormControl(''),
-      inspector: new FormControl(''),
-      remarks: new FormControl(''),
-    });
-  }
-
-  editVisit(visit: any) {
-    debugger
-    this.selectedVisit = { ...visit };
-    this.isEditing = true; 
-
-    this.visitForm.patchValue({
-      route: visit.route,
-      visitDate: this.formatDate(visit.visitDate), 
-      visitType: visit.visitType,
-      inspector: visit.inspector,
-      remarks: visit.remarks,
-    });
-  }
-
-  formatDate(date: Date): string {
-    return new Date(date).toISOString().split('T')[0]; 
-  }
-
-  submitVisit() {
-    const visitData = this.visitForm.value;
-  
-    const index = this.visits.findIndex(v => v.route === this.selectedVisit.route);
-  
-    if (index !== -1) {
-      this.visits[index] = {
-        ...visitData, 
-        visitDate: new Date(visitData.visitDate)  
-      };
-  
-      this.visits = [...this.visits]; 
+      this.getVisits();
     }
-  
-    this.selectedVisit = null;
-    this.visitForm.reset();
-    this.isEditing = false;
-  }
-  
 
-  cancelEdit() {
-    this.selectedVisit = null; 
-    this.visitForm.reset(); 
-    this.isEditing = false; 
-  }
+    ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator;
+    }
+
+    getVisits() {
+      this.apiService.getRequest('visits/sheduleVisit').subscribe(
+        (response: any) => {
+          if (response.status && response.data) {
+            console.log('Fetched Data:', response.data);
+
+            this.visits = response.data.map((visit: any) => ({
+              sl_no: visit.sl_no,
+              party_sl: visit.party_sl,
+              route: visit.party_sl,
+              visitDate: visit.schedule_date,
+              actualVisitDate: visit.actual_visited_date,
+              visitType: visit.visit_type,
+              inspector: visit.assigned_for,
+              assigned_for: visit.assigned_for,
+              remarks: visit.nar,
+            }));
+
+            this.dataSource.data = this.visits;
+
+            if (this.paginator) {
+              this.dataSource.paginator = this.paginator;
+            }
+
+            console.log("Processed Visits:", this.visits);
+          }
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error fetching visits:', error);
+          this.isLoading = false;
+        }
+      );
+    }
+
+    confirmDelete(visits:any){
+console.log('data',visits)
+    }
+
+    
+    openVisitDetails(visit: any) {
+      const dialogRef = this.dialog.open(VisitDetailsComponent, {
+        width: '500px',
+        data: visit
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.getVisits(); 
+        }
+      });
+    }
 }

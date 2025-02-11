@@ -1,5 +1,21 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { SpinnerService } from '../services/spinner service/spinner.service';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req);
-};
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(private spinnerService: SpinnerService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.spinnerService.show(); // Show the spinner before making the request
+
+    return next.handle(req).pipe(
+      finalize(() => {
+        this.spinnerService.hide(); // Hide the spinner after the request completes
+      })
+    );
+  }
+}

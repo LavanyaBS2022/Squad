@@ -1,0 +1,108 @@
+.dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.visit-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px; 
+}
+
+.half-width {
+  width: 48%; 
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+}
+
+.close-btn {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #c62828;
+}
+
+.save-btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #1565c0;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+.close-btn {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #c62828;
+}
+
+.save-btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #1565c0;
+}

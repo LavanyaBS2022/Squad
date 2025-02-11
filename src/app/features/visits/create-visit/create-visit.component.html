@@ -5,31 +5,44 @@
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Visit Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="visitDate">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="visitDate"
+          [matDatepickerFilter]="dateFilter"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Route</mat-label>
-        <mat-select formControlName="route">
-          <mat-option *ngFor="let route of routes" [value]="route">{{ route }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Type of Visit</mat-label>
         <mat-select formControlName="visitType">
-          <mat-option *ngFor="let type of visitTypes" [value]="type">{{ type }}</mat-option>
+          <mat-option *ngFor="let type of visitTypes" [value]="type.sl_no">
+            {{ type.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Inspector</mat-label>
         <mat-select formControlName="inspector">
-          <mat-option *ngFor="let inspector of inspectors" [value]="inspector">{{ inspector }}</mat-option>
+          <mat-option *ngFor="let inspector of inspectors" [value]="inspector.employee_id">
+            {{ inspector.employee_first_name }} {{ inspector.employee_last_name || '' }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Select Party</mat-label>
+        <mat-select formControlName="party_sl">
+          <mat-option *ngFor="let party of partyList" [value]="party.sl_no">
+            {{ party.name2 }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+
     </div>
 
     <div class="form-row">
@@ -38,14 +51,15 @@
         <textarea matInput formControlName="remarks"></textarea>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="visitForm.invalid" class="submit-btn">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="visitForm.invalid" 
+        class="submit-btn"
+      >
         Submit
       </button>
     </div>
   </form>
-
-  <div *ngIf="submitted" class="submission-result">
-    <h3>Form Submitted Successfully!</h3>
-    <pre>{{ visitForm.value | json }}</pre>
-  </div>
 </div>

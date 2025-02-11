@@ -1,1 +1,51 @@
-<p>visit-details works!</p>
+<h2 mat-dialog-title class="dialog-title">Edit Visit Details (SL No: {{ visit.sl_no }})</h2>
+
+<mat-dialog-content class="visit-details">
+  <form [formGroup]="visitForm">
+    
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width" disabled>
+        <mat-label>Schedule Date</mat-label>
+        <input matInput type="date" formControlName="visitDate">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width" disabled>
+        <mat-label>Actual Visit Date</mat-label>
+        <input matInput type="date" formControlName="actualVisitDate">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Visit Type</mat-label>
+        <mat-select formControlName="visitType">
+          <mat-option *ngFor="let type of visitTypes" [value]="type.sl_no">
+            {{ type.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Inspector</mat-label>
+        <mat-select formControlName="inspector">
+          <mat-option *ngFor="let inspector of inspectors" [value]="inspector.employee_id">
+            {{ inspector.employee_first_name }} {{ inspector.employee_last_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput formControlName="remarks"></textarea>
+      </mat-form-field>
+    </div>
+    
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button class="close-btn" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="save-btn" (click)="saveVisitDetails()">Save</button>
+</mat-dialog-actions>
