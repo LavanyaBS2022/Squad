@@ -19,29 +19,42 @@
         <mat-label>Type of Visit</mat-label>
         <mat-select formControlName="visitType">
           <mat-option *ngFor="let type of visitTypes" [value]="type.sl_no">
-            {{ type.name }}
+            {{ type.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Inspector</mat-label>
-        <mat-select formControlName="inspector">
-          <mat-option *ngFor="let inspector of inspectors" [value]="inspector.employee_id">
+        <mat-select formControlName="inspector" panelClass="custom-panel">
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="inspectorFilterCtrl"
+              placeholderLabel="Search inspector..."
+              noEntriesFoundLabel="No inspector found"
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let inspector of filteredInspectors" [value]="inspector.employee_id">
             {{ inspector.employee_first_name }} {{ inspector.employee_last_name || '' }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       
+      
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Select Party</mat-label>
-        <mat-select formControlName="party_sl">
-          <mat-option *ngFor="let party of partyList" [value]="party.sl_no">
+        <mat-select formControlName="party_sl" panelClass="custom-panel">
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="partyFilterCtrl"
+              placeholderLabel="Search party..."
+              noEntriesFoundLabel="No party found"
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let party of filteredPartyList" [value]="party.sl_no">
             {{ party.name2 }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-      
+      </mat-form-field>      
 
     </div>
 

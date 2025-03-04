@@ -1,7 +1,32 @@
 <nav class="navbar">
-  <div class="navbar-brand" (click)="navigateTo('/')">
-    <a href="/">
-      <img src="../../../assets/Images/kmf logo (1) 1.png" alt="Milk Procurement System Logo" class="brand-logo" />
+  <div class="navbar-brand" (click)="navigateToDashboard()">
+    <a>
+      <img src="../../../assets/Images/nandini-logo.png" alt="Milk Procurement System Logo" class="brand-logo" />
     </a>
+  </div>
+  
+  <div class="navbar-profile">
+    <div class="profile-container" (click)="toggleProfileMenu()" #profileContainer>
+      <div class="profile-icon">
+        <span class="user-initial">{{ getUserInitial() }}</span>
+      </div>
+      <div class="profile-dropdown" *ngIf="showProfileMenu">
+        <div class="profile-header">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-id" *ngIf="userId">ID: {{ userId }}</span>
+          <span class="company-name" *ngIf="companyName">{{ companyName }}</span>
+        </div>
+        <div class="profile-menu-items">
+          <div class="menu-item" (click)="viewProfile()">
+            <i class="material-icons">person</i>
+            <span>My Profile</span>
+          </div>
+          <div class="menu-item" (click)="logout()">
+            <i class="material-icons">exit_to_app</i>
+            <span>Logout</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

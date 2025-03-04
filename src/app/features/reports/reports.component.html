@@ -1,0 +1,47 @@
+<div class="container">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Visit Reports</mat-card-title>
+        <mat-card-subtitle>Select date range to generate visit report</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form #reportForm="ngForm">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>From Date</mat-label>
+              <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" name="fromDate" required>
+              <mat-datepicker-toggle matIconSuffix [for]="fromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromPicker></mat-datepicker>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline">
+              <mat-label>To Date</mat-label>
+              <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" name="toDate" required>
+              <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+    
+          <div class="button-container">
+            <button mat-stroked-button type="reset">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+            <button 
+              mat-raised-button 
+              color="primary" 
+              [disabled]="reportForm.invalid || isLoading"
+              (click)="generateReport()">
+              <mat-icon>picture_as_pdf</mat-icon>
+              Generate PDF Report
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+      
+      <div *ngIf="isLoading" class="loading-indicator">
+        <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+        <span>Generating report...</span>
+      </div>
+    </mat-card>
+  </div>

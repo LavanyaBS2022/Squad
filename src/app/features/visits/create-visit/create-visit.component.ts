@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../../shared/Materials/material.module';
 import { ApiService } from '../../../core/services/api.service';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 interface ApiResponse {
   code: number;
   message: string;
@@ -14,17 +16,25 @@ interface ApiResponse {
 @Component({
   selector: 'app-create-visit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MaterialModule],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgxMatSelectSearchModule],
   templateUrl: './create-visit.component.html',
   styleUrls: ['./create-visit.component.scss'],
 })
 export class CreateVisitComponent implements OnInit {
   visitForm!: FormGroup;
   submitted = false;
-  visitTypes: { sl_no: number; name: string }[] = []; 
+  visitTypes: { sl_no: number; description: string }[] = []; 
   inspectors: { employee_id: number; employee_first_name: string; employee_last_name: string | null }[] = [];
   partyList: { sl_no: number; code: string; name2: string }[] = []; 
   today = new Date();
+
+  filteredInspectors: any[] = [];
+  filteredPartyList: any[] = [];
+
+  inspectorFilterCtrl = new FormControl();
+  partyFilterCtrl = new FormControl();
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +54,17 @@ export class CreateVisitComponent implements OnInit {
     this.fetchVisitTypes(); 
     this.fetchInspectors();
     this.fetchPartyList();
+    this.inspectorFilterCtrl.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.unsubscribe$))
+    .subscribe((value) => {
+      this.filterInspectors(value);
+    });
 
+  this.partyFilterCtrl.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.unsubscribe$))
+    .subscribe((value) => {
+      this.filterParties(value);
+    });
   }
 
   fetchPartyList(): void {
@@ -56,6 +76,8 @@ export class CreateVisitComponent implements OnInit {
         next: (response) => {
           if (response && response.data) {
             this.partyList = response.data;
+            this.filteredPartyList = [...this.partyList];
+
           } else {
             this.openSnackBar('Failed to load parties', 'error');
           }
@@ -76,6 +98,8 @@ export class CreateVisitComponent implements OnInit {
         next: (response) => {
           if (response && response.data) {
             this.inspectors = response.data;
+            this.filteredInspectors = [...this.inspectors]; 
+
           } else {
             this.openSnackBar('Failed to load inspectors', 'error');
           }
@@ -87,6 +111,32 @@ export class CreateVisitComponent implements OnInit {
       });
   }
 
+
+  filterInspectors(searchValue: string) {
+    if (!searchValue) {
+      this.filteredInspectors = [...this.inspectors];
+      return;
+    }
+    const lowerCaseValue = searchValue.toLowerCase();
+    this.filteredInspectors = this.inspectors.filter(
+      (inspector) =>
+        inspector.employee_first_name.toLowerCase().includes(lowerCaseValue) ||
+        (inspector.employee_last_name && inspector.employee_last_name.toLowerCase().includes(lowerCaseValue))
+    );
+  }
+
+
+  filterParties(searchValue: string) {
+    if (!searchValue) {
+      this.filteredPartyList = [...this.partyList];
+      return;
+    }
+    const lowerCaseValue = searchValue.toLowerCase();
+    this.filteredPartyList = this.partyList.filter((party) =>
+      party.name2.toLowerCase().includes(lowerCaseValue)
+    );
+  }
+  
   dateFilter = (date: Date | null): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -94,7 +144,6 @@ export class CreateVisitComponent implements OnInit {
   };
 
   fetchVisitTypes(): void {
-    debugger
     this.apiService
       .getRequest<{ code: number; message: string; data: { sl_no: number; name: string; description: string }[]; status: boolean }>(
         'visits/visitType'

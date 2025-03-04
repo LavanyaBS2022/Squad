@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.erpToken = params['token'] || null;
-      console.log("Extracted token from URL:", this.erpToken); 
-  
+      this.erpToken = params['token'] || null;  
       if (this.erpToken) {
         this.authenticateAndNavigate();
       } else {
@@ -38,13 +36,9 @@ export class LoginComponent implements OnInit {
       this.loading = false;
       return;
     }
-  
-    console.log("Calling API with token:", this.erpToken);
-  
+    
     this.apiService.authenticateWithToken(this.erpToken).subscribe({
-      next: (response) => {
-        console.log('Authentication successful:', response); 
-  
+      next: (response) => {  
         if (response && response.data) {
           localStorage.setItem('authToken', response.data.token);
           if (response.data.refreshToken) {
@@ -53,8 +47,6 @@ export class LoginComponent implements OnInit {
   
           localStorage.setItem('userId', response.data.id.toString()); 
           localStorage.setItem('userName', response.data.name);
-  
-          console.log('Navigating to dashboard...');
           this.router.navigate(['/dashboard']);
         } else {
           console.error('Authentication response does not contain a token.');
@@ -67,7 +59,5 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  
-  
   
 }

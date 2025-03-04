@@ -15,6 +15,7 @@ import { SpinnerService } from './core/services/spinner service/spinner.service'
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisitListComponent } from './features/visits/visit-list/visit-list.component';
 import { MaterialModule } from './shared/Materials/material.module';
+import { ReportsComponent } from './features/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MaterialModule } from './shared/Materials/material.module';
     SidebarComponent,
     CreateVisitComponent,
     VisitListComponent,
+    ReportsComponent,
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,

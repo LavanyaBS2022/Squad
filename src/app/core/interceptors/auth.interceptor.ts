@@ -10,11 +10,11 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private spinnerService: SpinnerService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.spinnerService.show(); // Show the spinner before making the request
+    this.spinnerService.show(); 
 
     return next.handle(req).pipe(
       finalize(() => {
-        this.spinnerService.hide(); // Hide the spinner after the request completes
+        this.spinnerService.hide(); 
       })
     );
   }

@@ -5,12 +5,14 @@ import { CreateVisitComponent } from './features/visits/create-visit/create-visi
 import { VisitListComponent } from './features/visits/visit-list/visit-list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './features/auth/login/login.component';
+import { ReportsComponent } from './features/reports/reports.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }, 
   { path: 'dashboard', component: DashboardComponent },
   { path: 'create-visit', component: CreateVisitComponent },
   { path: 'visit-list', component: VisitListComponent },
+  {path:'reports',component:ReportsComponent},
   { path: '**', component: NotFoundComponent }, 
 ];
 

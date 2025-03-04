@@ -84,15 +84,15 @@ export class VisitDetailsComponent {
       const formValues = this.visitForm.getRawValue();
 
       const payload = {
-        party_sl: this.visit.party_sl || 4321, 
-        shedule_date: formValues.visitDate || '2024-12-20',
-        actual_visit_date: formValues.actualVisitDate || '2024-12-25',
-        visit_type: formValues.visitType || 58775, 
+        party_sl: this.visit.party_sl || '', 
+        shedule_date: formValues.visitDate || '',
+        actual_visit_date: formValues.actualVisitDate || '',
+        visit_type: formValues.visitType || '', 
         shedule_type: 1, 
         assigned_for: formValues.inspector || 1, 
         status: 1,
-        nar: formValues.remarks || 'Test 2', 
-        sl_no: this.visit.sl_no || 58780 
+        nar: formValues.remarks || '', 
+        sl_no: this.visit.sl_no || '' 
       };
 
       this.apiService.putRequest('visits/sheduleVisit', payload).subscribe({
